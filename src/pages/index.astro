@@ -1,5 +1,8 @@
 ---
+import { ArcoFetch } from '../fetch/arco-fetch';
+import type { Arco } from '../models/arco';
 
+const arcos: Arco[] = await ArcoFetch.getAll();
 ---
 
 <html lang="en">
@@ -11,6 +14,14 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>Arcos Disponibles</h1>
+		<ul>
+			{arcos.map((arco: Arco) => (
+				<li>
+					{arco.nombre}
+					{arco.es_subarco ? 'Subarco' : 'normal'}
+				</li>
+			))}
+		</ul>
 	</body>
 </html>

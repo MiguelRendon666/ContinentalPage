@@ -1,19 +1,19 @@
-import { Arco } from '../models/arco.js';
-import { API_BASE_URL } from '../constants/api.js';
+import { Arco } from '../models/arco';
+import { API_BASE_URL } from '../constants/api';
 
 export class ArcoFetch {
   static BASE_URL = `${API_BASE_URL}/backend-api/page/arcos`;
 
-  static async getAll() {
+  static async getAll(): Promise<Arco[]> {
     const response = await fetch(this.BASE_URL);
     if (!response.ok) {
       throw new Error(`Error fetching arcos: ${response.statusText}`);
     }
     const data = await response.json();
-    return data.map(item => new Arco(item));
+    return data.map((item: any) => new Arco(item));
   }
 
-  static async getById(id) {
+  static async getById(id: number): Promise<Arco> {
     const response = await fetch(`${this.BASE_URL}/${id}`);
     if (!response.ok) {
       throw new Error(`Error fetching arco: ${response.statusText}`);
