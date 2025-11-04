@@ -1,0 +1,13 @@
+---
+import NavBarLayout from "./NavBarLayout.astro";
+
+const { title } = Astro.props;
+---
+
+<header>
+    <div id="header-container">
+        <slot name="header-slot"/>
+    </div>
+
+    <NavBarLayout title={title} />
+</header>

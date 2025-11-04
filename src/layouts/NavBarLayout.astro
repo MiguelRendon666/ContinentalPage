@@ -1,0 +1,69 @@
+---
+import { ROUTES_NAME } from "../constants/routes";
+import { URL } from "../constants/url";
+const { title } = Astro.props;
+---
+
+<nav id="header-nav-item" class="header-nav-item">
+    <a href={URL.home}>{ROUTES_NAME.home}</a>
+    <a href="#">{ROUTES_NAME.chapters}</a>
+    <a href="#">{ROUTES_NAME.news}</a>
+    <a href="#">{ROUTES_NAME.us}</a>
+</nav>
+<div id="header-nav-item-bellowed" class="bellow-header-nav-item"></div>
+
+<script>
+    const navContainer = document.getElementById("header-container");
+    const nav = document.getElementById("header-nav-item");
+    const navBellowed = document.getElementById("header-nav-item-bellowed");
+
+    function checkScroll() {
+        if (nav && navContainer && navBellowed && window.scrollY > navContainer.offsetHeight) {
+            nav.classList.add('scrolled');
+            navBellowed.classList.add('scrolled');
+        } else if (nav && navBellowed) {
+            nav.classList.remove('scrolled');
+            navBellowed.classList.remove('scrolled');
+        }
+    }
+
+    window.addEventListener('scroll', checkScroll);
+</script>
+
+<style>
+    :root {
+        --navbar-height: 75px;
+    }
+    .bellow-header-nav-item { display: none; height: var(--navbar-height);}
+    .bellow-header-nav-item.scrolled { display: block; }
+    
+    .header-nav-item { 
+        height: var(--navbar-height);
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        background-color: transparent;
+    }
+    .header-nav-item.scrolled {
+        position: fixed;
+        top: 0;
+        backdrop-filter: blur(10px);
+        background-color: var(--color-navbar);
+    }
+    .header-nav-item a {
+        font-size: 1.25rem;
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-text-main);
+    }
+    .header-nav-item a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        filter: brightness(1.2);
+        color: var(--color-text-main);
+    }
+</style>

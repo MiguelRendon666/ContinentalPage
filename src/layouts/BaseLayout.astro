@@ -1,0 +1,30 @@
+---
+import HeaderLayout from "./HeaderLayout.astro";
+
+const { title } = Astro.props;
+---
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+        <slot name="head" />
+		<title>{title}</title>
+        <link rel="stylesheet" href="src/css/app.css" />
+	</head>
+    <HeaderLayout>
+        <slot name="header-slot" slot="header-slot"></slot>
+    </HeaderLayout>
+
+	<body>
+		<main>
+            <slot />
+        </main>
+	</body>
+
+    <footer>
+
+    </footer>
+</html>

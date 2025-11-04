@@ -1,27 +1,18 @@
 ---
-import { ArcoFetch } from '../fetch/arco-fetch';
-import type { Arco } from '../models/arco';
-
-const arcos: Arco[] = await ArcoFetch.getAll();
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ROUTES_NAME } from "../constants/routes";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Arcos Disponibles</h1>
-		<ul>
-			{arcos.map((arco: Arco) => (
-				<li>
-					{arco.nombre}
-					{arco.es_subarco ? 'Subarco' : 'normal'}
-				</li>
-			))}
-		</ul>
-	</body>
-</html>
+<BaseLayout title={ROUTES_NAME.home}>
+	<div slot="header-slot" class="main-page-header">
+		<h2>Aqui va un banner super way</h2>
+	</div>
+
+	Aqwui va todo el contenido
+</BaseLayout>
+
+<style>
+	.main-page-header {
+		height: 250px;
+	}
+</style>
