@@ -6,9 +6,9 @@ const { title } = Astro.props;
 
 <nav id="header-nav-item" class="header-nav-item">
     <a href={URL.home}>{ROUTES_NAME.home}</a>
-    <a href="#">{ROUTES_NAME.chapters}</a>
-    <a href="#">{ROUTES_NAME.news}</a>
-    <a href="#">{ROUTES_NAME.us}</a>
+    <a href={URL.chapters}>{ROUTES_NAME.chapters}</a>
+    <a href={URL.news}>{ROUTES_NAME.news}</a>
+    <a href={URL.us}>{ROUTES_NAME.us}</a>
 </nav>
 <div id="header-nav-item-bellowed" class="bellow-header-nav-item"></div>
 

@@ -4,4 +4,5 @@ export const URL: Record<string, string> = {
   chapter: '/capitulos/',
   news: '/noticias',
   new: '/noticias/',
+  us: '/nosotros',
 };
