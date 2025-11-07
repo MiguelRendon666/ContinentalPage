@@ -13,10 +13,12 @@
     --color-glass: rgba(30, 34, 43, 0.7);
     --color-navbar: rgba(24, 28, 36, 0.8);
 
-    --color-accent-azul: #19ddff;   
-    --color-accent-rojo: #ff426f;   
-    --color-accent-violeta: #bb86fc;
-    --color-accent-verde: #10b981;  
+    --color-accent-azul: #00a3bf;
+    --color-accent-rojo: #d62a55;
+    --color-accent-violeta: #8e5edc;
+    --color-accent-verde: #0b8a67;
+    --color-accent-naranja: #cc7a26;
+ 
 
     --color-text-main: #f3f3f3;
     --color-text-secondary: #b0b0b0;
@@ -38,7 +40,7 @@ body {
     font-size: 16px;
 }
 
-main {
+main.main-body {
     height: 100vh;
     max-width: 1200px;
     margin: 0 auto;

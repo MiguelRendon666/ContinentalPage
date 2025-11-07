@@ -23,7 +23,7 @@ export class CapituloFetch {
   }
 
   static async getByObraUrl(obra_url: string): Promise<Capitulo[]> {
-    const response = await fetch(`${API_BASE_ROUTES.books}/obra/${obra_url}`);
+    const response = await fetch(`${this.BASE_URL}/obra/${obra_url}`);
     if (!response.ok) {
       throw new Error(`Error fetching capitulos by obra: ${response.statusText}`);
     }

@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ROUTES_NAME } from "../../constants/routes";
+import { CapituloFetch } from '../../fetch/capitulo-fetch';
+import { ObraFetch } from '../../fetch/obra-fetch';
+import type { Capitulo } from '../../models/capitulo';
+import type { Obra as ObraType } from '../../models/obra';
+import WorksContainer from '../../layouts/objects/WorksContainer.astro';
+
+export async function getStaticPaths() {
+  const obras = await ObraFetch.getAll();
+  return obras.map((obra) => ({
+    params: { obra: obra.url },
+  }));
+}
+
+export const dynamicParams = true;
+const { obra } = Astro.params;
+
+var capitulos : Capitulo[] = await CapituloFetch.getByObraUrl(obra as string);
+var obraData : ObraType = await ObraFetch.getByUrl(obra as string);
+---
+
+<BaseLayout title={ROUTES_NAME.chapters}>
+	<div slot="header-slot" class="chapters-page-header">
+		
+	</div>
+	<div class="main-content-chapters">
+		<div class="column-left">
+			<WorksContainer actual_show={obraData.url} />
+		</div>
+
+		<div class="column-right">
+			{capitulos.length > 0 ? (
+			capitulos.map((capitulo) => (
+				<div>
+				<h3>{capitulo.titulo}</h3>
+				</div>
+			))
+			) : (
+			<h3>No hay nada</h3>
+			)}
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	.main-content-chapters {
+		height: 100vh;
+		max-width: 90%;
+		margin: 0 auto;
+		padding: 24px 16px;
+		display: flex;
+		flex-direction: row;
+		gap: 2rem;
+	}
+	.main-content-chapters .column-left { flex: 0 0 30%; }
+	.main-content-chapters .column-right { flex: 1; }
+</style>

@@ -1,0 +1,36 @@
+---
+import WorkContainerItem from "./WorkContainerItem.astro";
+import { ObraFetch } from "../../fetch/obra-fetch";
+import type { Obra } from "../../models/obra";
+
+const { actual_show } = Astro.props;
+const obras : Obra[] = await ObraFetch.getAll();
+---
+
+<div class="w-container-entire">
+    <h2>Selecciona la obra que desees leer</h2>
+    <hr>
+    <div class="w-container-list">
+        {obras.map((obra) => (
+        <WorkContainerItem show={obra} isActive={obra.url == actual_show} />
+        ))}
+    </div>
+</div>
+
+<style>
+    .w-container-entire {
+        padding-block: 1rem;
+        padding-inline: 1.5rem;
+        background-color: var(--color-bg-obsidian);
+        border-radius: 1.5rem;
+    }
+    .w-container-entire hr {
+        margin-block: 1rem;
+        opacity: 0.2;
+    }
+    .w-container-list {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+</style>

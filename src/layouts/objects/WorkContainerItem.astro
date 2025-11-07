@@ -1,0 +1,43 @@
+---
+import type { Obra } from "../../models/obra";
+import { URL } from "../../constants/url";
+
+interface Props {
+  show: Obra;
+  isActive: boolean;
+}
+
+const { show, isActive } = Astro.props as Props;
+---
+
+<div class={`w-container-item ${isActive ? 'active' : ''}`}>
+  <a href=`${URL.chapter}${show.url}`>
+    {
+        isActive ?
+        <h3>{show.nombre}</h3> :
+        <h4>{show.nombre}</h4>
+    }
+  </a>
+</div>
+
+<style>    
+    .w-container-item {
+        background-color: var(--color-bg-grafito);
+        padding-inline: 1rem;
+        padding-block: 0.5rem;
+        border-radius: .75rem;
+        transition: 0.5s ease;
+    }
+    .w-container-item.active {
+        background-color: var(--color-accent-naranja);
+    }
+    .w-container-item a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .w-container-item:has(a:hover) {
+        filter: brightness(1.2);
+        transform: translateX(0.5rem);
+    }
+</style>
