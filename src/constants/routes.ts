@@ -4,3 +4,5 @@ export const ROUTES_NAME: Record<string, string> = {
   news: 'Noticias',
   us: 'Nosotros',
 };
+
+export const DEFAULT_SEARCH_VALUE: string = 'default';

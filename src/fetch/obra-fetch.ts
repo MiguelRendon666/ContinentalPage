@@ -1,8 +1,8 @@
 import { Obra } from '../models/obra';
-import { API_BASE_URL } from '../constants/api';
+import { API_BASE_ROUTES } from '../constants/api';
 
 export class ObraFetch {
-  static BASE_URL = `${API_BASE_URL}/backend-api/page/obras`;
+  static BASE_URL = API_BASE_ROUTES.books;
 
   static async getAll(): Promise<Obra[]> {
     const response = await fetch(this.BASE_URL);
@@ -13,8 +13,8 @@ export class ObraFetch {
     return data.map((item: any) => new Obra(item));
   }
 
-  static async getById(id: number): Promise<Obra> {
-    const response = await fetch(`${this.BASE_URL}/${id}`);
+  static async getByUrl(url: string): Promise<Obra> {
+    const response = await fetch(`${this.BASE_URL}/${url}`);
     if (!response.ok) {
       throw new Error(`Error fetching obra: ${response.statusText}`);
     }

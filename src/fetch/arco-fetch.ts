@@ -1,8 +1,8 @@
 import { Arco } from '../models/arco';
-import { API_BASE_URL } from '../constants/api';
+import { API_BASE_ROUTES } from '../constants/api';
 
 export class ArcoFetch {
-  static BASE_URL = `${API_BASE_URL}/backend-api/page/arcos`;
+  static BASE_URL = API_BASE_ROUTES.arcs;
 
   static async getAll(): Promise<Arco[]> {
     const response = await fetch(this.BASE_URL);
@@ -13,8 +13,8 @@ export class ArcoFetch {
     return data.map((item: any) => new Arco(item));
   }
 
-  static async getById(id: number): Promise<Arco> {
-    const response = await fetch(`${this.BASE_URL}/${id}`);
+  static async getByUrl(url: string): Promise<Arco> {
+    const response = await fetch(`${this.BASE_URL}/${url}`);
     if (!response.ok) {
       throw new Error(`Error fetching arco: ${response.statusText}`);
     }

@@ -1,8 +1,8 @@
 import { PersonajeFicticio } from '../models/personaje-ficticio';
-import { API_BASE_URL } from '../constants/api';
+import { API_BASE_ROUTES } from '../constants/api';
 
 export class PersonajeFicticioFetch {
-  static BASE_URL = `${API_BASE_URL}/backend-api/page/personajes-ficticios`;
+  static BASE_URL = API_BASE_ROUTES.characters;
 
   static async getAll(): Promise<PersonajeFicticio[]> {
     const response = await fetch(this.BASE_URL);
@@ -13,8 +13,8 @@ export class PersonajeFicticioFetch {
     return data.map((item: any) => new PersonajeFicticio(item));
   }
 
-  static async getById(id: number): Promise<PersonajeFicticio> {
-    const response = await fetch(`${this.BASE_URL}/${id}`);
+  static async getByUrl(url: string): Promise<PersonajeFicticio> {
+    const response = await fetch(`${this.BASE_URL}/${url}`);
     if (!response.ok) {
       throw new Error(`Error fetching personaje ficticio: ${response.statusText}`);
     }
