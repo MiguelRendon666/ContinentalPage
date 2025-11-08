@@ -1,14 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorksContainer from '../../layouts/objects/WorksContainer.astro';
+import ChapterItem from '../../layouts/objects/ChapterItem.astro';
 import { ROUTES_NAME } from "../../constants/routes";
 import { CapituloFetch } from '../../fetch/capitulo-fetch';
 import { ObraFetch } from '../../fetch/obra-fetch';
 import type { Capitulo } from '../../models/capitulo';
 import type { Obra as ObraType } from '../../models/obra';
-import WorksContainer from '../../layouts/objects/WorksContainer.astro';
+import type { ApiError } from '../../models/api-error';
 
 export async function getStaticPaths() {
-  const obras = await ObraFetch.getAll();
+  const obrasResponse = await ObraFetch.getAll();
+  const obras: ObraType[] = 'error' in obrasResponse ? [] : obrasResponse as ObraType[];
   return obras.map((obra) => ({
     params: { obra: obra.url },
   }));
@@ -17,29 +20,43 @@ export async function getStaticPaths() {
 export const dynamicParams = true;
 const { obra } = Astro.params;
 
-var capitulos : Capitulo[] = await CapituloFetch.getByObraUrl(obra as string);
-var obraData : ObraType = await ObraFetch.getByUrl(obra as string);
+const capitulosResponse = await CapituloFetch.getByObraUrl(obra as string);
+const capitulos: Capitulo[] = 'error' in capitulosResponse ? [] : capitulosResponse as Capitulo[];
+
+const obraResponse = await ObraFetch.getByUrl(obra as string);
+const obraData = 'error' in obraResponse ? null : obraResponse as ObraType;
 ---
 
 <BaseLayout title={ROUTES_NAME.chapters}>
 	<div slot="header-slot" class="chapters-page-header">
-		
+		<div class="column-left">
+			<h1>{obraData ? obraData.nombre : 'Obra no encontrada'}</h1>
+		</div>
 	</div>
 	<div class="main-content-chapters">
 		<div class="column-left">
+			{obraData ? (
 			<WorksContainer actual_show={obraData.url} />
+			) : (
+			<div></div>
+			)}
 		</div>
 
 		<div class="column-right">
-			{capitulos.length > 0 ? (
-			capitulos.map((capitulo) => (
-				<div>
-				<h3>{capitulo.titulo}</h3>
+			<div class="chapters-list-container">
+				<h2>Lista de Capitulos</h2>
+				<hr>
+				<div class="chapter-list-grid">
+					{
+						capitulos.length > 0 ? (
+							capitulos.map((capitulo) => (
+							<ChapterItem capitulo={capitulo} />
+						))
+						) :
+						<div>No hay capítulos disponibles para esta obra.</div>
+					}
 				</div>
-			))
-			) : (
-			<h3>No hay nada</h3>
-			)}
+			</div>
 		</div>
 	</div>
 </BaseLayout>
@@ -56,4 +73,17 @@ var obraData : ObraType = await ObraFetch.getByUrl(obra as string);
 	}
 	.main-content-chapters .column-left { flex: 0 0 30%; }
 	.main-content-chapters .column-right { flex: 1; }
+
+	.chapters-list-container {
+		background-color: var(--color-bg-obsidian);
+		border-radius: 1.5rem;
+		padding: 1rem 1.5rem;
+		height: 100%;
+	}
+
+	.chapter-list-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		gap: 1rem;
+	}
 </style>

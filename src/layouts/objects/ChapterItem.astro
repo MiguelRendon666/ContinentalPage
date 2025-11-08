@@ -1,0 +1,11 @@
+---
+import type { Capitulo } from "../../models/capitulo";
+
+interface Props {
+  capitulo: Capitulo;
+}
+
+const { capitulo } = Astro.props;
+---
+
+<p>{capitulo.titulo}</p>

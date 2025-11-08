@@ -2,20 +2,26 @@
 import WorkContainerItem from "./WorkContainerItem.astro";
 import { ObraFetch } from "../../fetch/obra-fetch";
 import type { Obra } from "../../models/obra";
+import type { ApiError } from "../../models/api-error";
 
 const { actual_show } = Astro.props;
-const obras : Obra[] = await ObraFetch.getAll();
+const obrasResponse : Obra[] | ApiError = await ObraFetch.getAll();
+const isError = 'error' in obrasResponse;
 ---
 
-<div class="w-container-entire">
-    <h2>Selecciona la obra que desees leer</h2>
-    <hr>
-    <div class="w-container-list">
-        {obras.map((obra) => (
-        <WorkContainerItem show={obra} isActive={obra.url == actual_show} />
-        ))}
+{isError ? (
+    <div></div>
+) : (
+    <div class="w-container-entire">
+        <h2>Selecciona la obra que desees leer</h2>
+        <hr>
+        <div class="w-container-list">
+            {(obrasResponse as Obra[]).map((obra) => (
+            <WorkContainerItem show={obra} isActive={obra.url == actual_show} />
+            ))}
+        </div>
     </div>
-</div>
+)}
 
 <style>
     .w-container-entire {
@@ -23,10 +29,6 @@ const obras : Obra[] = await ObraFetch.getAll();
         padding-inline: 1.5rem;
         background-color: var(--color-bg-obsidian);
         border-radius: 1.5rem;
-    }
-    .w-container-entire hr {
-        margin-block: 1rem;
-        opacity: 0.2;
     }
     .w-container-list {
         display: flex;
