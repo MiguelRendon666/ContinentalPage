@@ -8,4 +8,87 @@ interface Props {
 const { capitulo } = Astro.props;
 ---
 
-<p>{capitulo.titulo}</p>
+<a href="" class="chapter-item-a">
+  <div class="chapter-item-container">
+    <div class="chapter-item-card">
+      <div class="content content-1">
+        <h2>{capitulo.numero_capitulo}</h2>
+        <div>
+          <h3>{capitulo.titulo}</h3>
+          <hr>
+        </div>
+      </div>
+
+      <div class="content content-2">
+        <h2>{capitulo.titulo}</h2>
+        <p>{capitulo.descripcion_corta}</p>
+      </div>
+    </div>
+  </div>
+</a>
+
+<style>
+:root {
+  --dark-gradient: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.4));
+}
+
+.chapter-item-a {
+  text-decoration: none;
+  color: inherit;
+  color: var(--color-text-main);
+  max-width: 200px;
+}
+
+.chapter-item-card {
+  width: 100%;
+  height: 300px;
+  border-radius: 1rem;
+  background-color: transparent;
+  transition: 0.5s ease;
+  display: grid;
+  overflow: hidden;
+}
+.chapter-item-container:hover .chapter-item-card { transform: rotateY(180deg); }
+.chapter-item-card .content { 
+  grid-area: 1 / 1;
+  transition: 0.5s ease; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}
+.chapter-item-card .content-1,
+.chapter-item-card .content-2 {
+  position: relative;
+  background-size: cover, cover !important;
+  background-position: center, center !important;
+  background-repeat: no-repeat, no-repeat !important;
+  color: var(--color-text-main);
+  text-align: center;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  z-index: 1;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.chapter-item-card .content-1::before,
+.chapter-item-card .content-2::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: transparent;
+  z-index: 0;
+  pointer-events: none;
+  border: .5rem solid var(--color-text-main);
+  border-radius: 1rem;
+  box-sizing: border-box;
+}
+.chapter-item-card .content-1 { opacity: 1; background: var(--dark-gradient), url('https://picsum.photos/200/300'); }
+.chapter-item-card .content-2 { opacity: 0; background: var(--dark-gradient), url('/public/assets/card.jpg'); }
+.chapter-item-container:hover .content-1 { opacity: 0; }
+.chapter-item-container:hover .content-2 { opacity: 1; transform: rotateY(180deg);}
+
+.chapter-item-card .content-1 *, .chapter-item-card .content-2 * { width: 100%; }
+</style>
