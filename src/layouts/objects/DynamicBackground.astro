@@ -1,0 +1,110 @@
+---
+---
+
+<div class="dynamic-background">
+    <div id="dinamic_header">
+        <slot></slot>
+    </div>
+</div>
+
+<script>
+  const bgContainer = document.querySelector('.dynamic-background');
+  const headerElement = document.getElementById('dinamic_header');
+  
+  if (bgContainer && headerElement) {
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+    const headerHeight = headerElement.offsetHeight;
+    const availableHeight = viewportHeight - headerHeight;
+    
+    const itemCount = Math.floor(availableHeight / 200);
+    const positions: { top: number; left: number; width: number; height: number }[] = [];
+    
+    const checkOverlap = (top: number, left: number, width: number, height: number) => {
+      const topPx = (top / 100) * availableHeight + headerHeight;
+      const leftPx = (left / 100) * viewportWidth;
+      
+      return positions.some(pos => {
+        const posTopPx = (pos.top / 100) * availableHeight + headerHeight;
+        const posLeftPx = (pos.left / 100) * viewportWidth;
+        
+        const overlap = !(
+          topPx + height < posTopPx ||
+          topPx > posTopPx + pos.height ||
+          leftPx + width < posLeftPx ||
+          leftPx > posLeftPx + pos.width
+        );
+        
+        return overlap;
+      });
+    };
+    
+    for (let i = 0; i < itemCount; i++) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'bg-item-wrapper';
+      
+      const isLeft = i % 2 === 0;
+      const isDot = i % 2 === 0;
+      const size = isDot ? 256 : 250;
+      
+      let top = 10 + Math.random() * 70;
+      let left = isLeft ? Math.random() * 30 : 70 + Math.random() * 30;
+      let attempts = 0;
+      
+      while (checkOverlap(top, left, size, size) && attempts < 20) {
+        top = 10 + Math.random() * 70;
+        left = isLeft ? Math.random() * 30 : 70 + Math.random() * 30;
+        attempts++;
+      }
+      
+      const rotation = Math.random() * 360;
+      
+      // Ajustar el top para que sea relativo al espacio disponible debajo del header
+      const topPx = (top / 100) * availableHeight + headerHeight;
+      const topPercent = (topPx / viewportHeight) * 100;
+      
+      wrapper.style.cssText = `top: ${topPercent}%; left: ${left}%; transform: rotate(${rotation}deg);`;
+      
+      const itemDiv = document.createElement('div');
+      itemDiv.className = isDot ? 'dot-bg-item' : 'square-bg-item';
+      
+      wrapper.appendChild(itemDiv);
+      bgContainer.appendChild(wrapper);
+      
+      positions.push({ top, left, width: size, height: size });
+    }
+  }
+</script>
+
+<style is:global>
+  .dynamic-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    background-color: transparent;
+    z-index: -10;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .bg-item-wrapper {
+    position: absolute;
+  }
+  .bg-item-wrapper * { isolation: isolate; }
+
+  .dot-bg-item {
+    opacity: 0.03;
+    width: 256px;
+    height: 256px;
+    background-image: url('/assets/dot.png');
+  }
+
+  .square-bg-item {
+    opacity: 0.05;
+    width: 250px;
+    height: 250px;
+    background-image: url('/assets/rectangle.png');
+  }
+</style>
