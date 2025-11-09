@@ -7,6 +7,5 @@ export const API_BASE_ROUTES: Record<string, string> = {
   books: `${API_SERVER_URL}/obras`,
   news: `${API_SERVER_URL}/noticias`,
   characters: `${API_SERVER_URL}/personajes-ficticios`,
+  systemVariables: `${API_SERVER_URL}/variables-sistema`,
 }
-
-export const API_DEFAULT_OBRA: string = 'one-piece';

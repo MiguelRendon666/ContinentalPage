@@ -1,0 +1,1 @@
+export const SV_DEFAULT_INITIAL_WORK: string = 'DEFINWRK';

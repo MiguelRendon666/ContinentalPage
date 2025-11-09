@@ -1,12 +1,22 @@
 ---
 import { ROUTES_NAME } from "../constants/routes";
+import { SV_DEFAULT_INITIAL_WORK } from "../constants/system_variables";
 import { URL } from "../constants/url";
+import { VariableSistemaFetch } from "../fetch/variable-sistema-fetch";
+import type { VariableSistema } from "../models/variable-sistema";
 const { title } = Astro.props;
+
+const initialPageResponse = await VariableSistemaFetch.getByNombre(SV_DEFAULT_INITIAL_WORK);
+const initialPage = 'error' in initialPageResponse ? null : initialPageResponse as VariableSistema;
 ---
 
 <nav id="header-nav-item" class="header-nav-item">
     <a href={URL.home}>{ROUTES_NAME.home}</a>
-    <a href={URL.chapters_default}>{ROUTES_NAME.chapters}</a>
+    {
+        initialPage ? (
+        <a href={URL.chapter + initialPage.valor}>{ROUTES_NAME.chapters}</a>
+        ) : null
+    }
     <a href={URL.news}>{ROUTES_NAME.news}</a>
     <a href={URL.us}>{ROUTES_NAME.us}</a>
 </nav>
