@@ -4,12 +4,14 @@ export class Obra {
   nombre: string;
   descripcion: string;
   url: string;
+  url_portada?: string;
 
   constructor(data: any) {
     this.id = data.id;
     this.nombre = data.nombre;
     this.descripcion = data.descripcion;
     this.url = data.url;
+    this.url_portada = data.url_portada;
   }
 }
 
@@ -19,4 +21,5 @@ export interface IObra {
   nombre: string;
   descripcion: string;
   url: string;
+  url_portada?: string;
 }

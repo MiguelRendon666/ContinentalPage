@@ -18,7 +18,7 @@ export class CapituloFetch {
   }
 
   static async getByUrl(url: string): Promise<Capitulo | ApiError> {
-    const response = await fetch(`${this.BASE_URL}/${url}`);
+    const response = await fetch(`${this.BASE_URL}${url}`);
     if (!response.ok) {
       throw new Error(`Error fetching capitulo: ${response.statusText}`);
     }
@@ -30,7 +30,7 @@ export class CapituloFetch {
   }
 
   static async getByObraUrl(obra_url: string): Promise<Capitulo[] | ApiError> {
-    const response = await fetch(`${this.BASE_URL}/obra/${obra_url}`);
+    const response = await fetch(`${this.BASE_URL}obra/${obra_url}`);
     if (!response.ok) {
       throw new Error(`Error fetching capitulos by obra: ${response.statusText}`);
     }

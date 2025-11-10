@@ -18,7 +18,7 @@ export class ObraFetch {
   }
 
   static async getByUrl(url: string): Promise<Obra | ApiError> {
-    const response = await fetch(`${this.BASE_URL}/${url}`);
+    const response = await fetch(`${this.BASE_URL}${url}`);
     if (!response.ok) {
       throw new Error(`Error fetching obra: ${response.statusText}`);
     }

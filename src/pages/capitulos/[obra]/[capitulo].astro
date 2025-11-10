@@ -1,0 +1,153 @@
+---
+import { CapituloFetch } from '../../../fetch/capitulo-fetch';
+import { ObraFetch } from '../../../fetch/obra-fetch';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import type { Capitulo as CapituloType } from '../../../models/capitulo';
+import type { Obra } from '../../../models/obra';
+
+
+export async function getStaticPaths() {
+  const obrasResponse = await ObraFetch.getAll();
+  const obras: Obra[] = 'error' in obrasResponse ? [] : obrasResponse as Obra[];
+  const paths: { params: { obra: string; capitulo: string } }[] = [];
+
+  for (const obra of obras) {
+    const capitulosResponse = await CapituloFetch.getByObraUrl(obra.url);
+    const capitulos: CapituloType[] = 'error' in capitulosResponse ? [] : capitulosResponse as CapituloType[];
+    capitulos.forEach(c => {
+      paths.push({ params: { obra: obra.url, capitulo: c.url } });
+    });
+  }
+
+  return paths;
+}
+
+export const dynamicParams = true;
+const { obra, capitulo } = Astro.params;
+
+const obraResponse = await ObraFetch.getByUrl(obra as string);
+const obraData = 'error' in obraResponse ? null : obraResponse as Obra;
+
+const capituloResponse = await CapituloFetch.getByUrl(capitulo as string);
+const capituloData = 'error' in capituloResponse ? null : capituloResponse as CapituloType;
+const capituloParagraphs = capituloData ? capituloData.texto_capitulo.split('\n') : [];
+---
+
+<BaseLayout>
+<!-- Slot del dynamic background para que se vea bien perruqui -->
+	<div slot="dynamic-background-slot">
+		<div class="dynamic-slot-work-header">
+			<img src={obraData ? obraData.url_portada : ''} alt="">
+		</div>
+	</div>
+
+	<!-- Slot del header de la pagina -->
+	<div slot="header-slot" class="chapters-page-header">
+		<div class="obra-header-name">
+			<div>
+				<h1>{obraData ? obraData.nombre : 'Obra no encontrada'}</h1>
+				<hr>
+			</div>
+			<h3>{obraData ? obraData.descripcion : ''}</h3>
+		</div>
+	</div>
+
+  <div class="reader-container">
+    <div class="reader-card">
+      <div class="reader-card-header">
+        <div class="reader-card-header-content">
+          <div class="reader-card-portrait-image">
+            <img src={capituloData ? capituloData.url_portada : ''} alt="">
+          </div>
+          <div class="reader-card-title-subtitle">
+            <h1>Capítulo {capituloData?.numero_capitulo}: {capituloData ? capituloData.titulo : 'Capítulo no encontrado'}</h1>
+            <hr>
+            <h3>{obraData ? obraData.descripcion : ''}</h3>
+          </div>
+        </div>
+      </div>
+      <hr>
+      {capituloParagraphs.map((paragraph) => (
+        <>
+          <p>{paragraph}</p>
+          <br>
+        </>
+      ))}
+      <p>Fin.</p>
+    </div>
+  </div>
+
+</BaseLayout>
+<style>
+  /* ------------------------------------------------------------------------------------------------- */
+  .obra-header-name {
+		text-align: center;
+		height: 300px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-evenly;
+	}
+	.obra-header-name * { width: 100%; }
+	.obra-header-name h1 {
+		justify-content: center;
+		font-size: 3rem;
+	}
+  /* ------------------------------------------------------------------------------------------------- */
+
+  .reader-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .reader-card{
+    width: 100%;
+    padding: 2rem;
+    background-color: var(--color-bg-obsidian);
+    border-radius: 2rem;
+    max-width: 1000px;
+  }
+
+    .reader-card-header {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .reader-card-portrait-image {display: flex; flex-direction: column; max-width: 300px;}
+  .reader-card-portrait-image img {
+    width: 300px;
+    height: 450px;
+    border-radius: 2rem;
+  }
+  .reader-card-title-subtitle{
+    width: 100%;
+    padding-inline: 2rem;
+  }
+ 
+  .reader-card-header-content {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+  }
+
+  /* ------------------------------------------------------------------------------------------------- */
+  .dynamic-slot-work-header {
+		width: 100%;
+		-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-size: cover;
+		mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+		mask-repeat: no-repeat;
+		mask-size: cover;
+	}
+	.dynamic-slot-work-header img {
+		width: 100%;
+		height: auto;
+		opacity: 0.2;
+	}
+  /* ------------------------------------------------------------------------------------------------- */
+</style>

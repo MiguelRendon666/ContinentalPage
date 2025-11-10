@@ -6,7 +6,7 @@ export class VariableSistemaFetch {
   static BASE_URL = API_BASE_ROUTES.systemVariables;
 
   static async getByNombre(nombre: string): Promise<VariableSistema | ApiError> {
-    const response = await fetch(`${this.BASE_URL}/${nombre}`);
+    const response = await fetch(`${this.BASE_URL}${nombre}`);
     if (!response.ok) {
       throw new Error(`Error fetching variable de sistema: ${response.statusText}`);
     }

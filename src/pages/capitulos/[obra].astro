@@ -31,14 +31,18 @@ const obraData = 'error' in obraResponse ? null : obraResponse as ObraType;
 	<!-- Slot del dynamic background para que se vea bien perruqui -->
 	<div slot="dynamic-background-slot">
 		<div class="dynamic-slot-work-header">
-			<img src="https://picsum.photos/1280/360" alt="">
+			<img src={obraData ? obraData.url_portada : ''} alt="">
 		</div>
 	</div>
 
 	<!-- Slot del header de la pagina -->
 	<div slot="header-slot" class="chapters-page-header">
 		<div class="obra-header-name">
-			<h1>{obraData ? obraData.nombre : 'Obra no encontrada'}</h1>
+			<div>
+				<h1>{obraData ? obraData.nombre : 'Obra no encontrada'}</h1>
+				<hr>
+			</div>
+			<h3>{obraData ? obraData.descripcion : ''}</h3>
 		</div>
 	</div>
 	
@@ -87,12 +91,14 @@ const obraData = 'error' in obraResponse ? null : obraResponse as ObraType;
 	.obra-header-name {
 		text-align: center;
 		height: 300px;
-	}
-	.obra-header-name h1 {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
+		justify-content: space-evenly;
+	}
+	.obra-header-name * { width: 100%; }
+	.obra-header-name h1 {
 		justify-content: center;
-		height: 100%;
 		font-size: 3rem;
 	}
 	.main-content-chapters {
