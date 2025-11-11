@@ -62,18 +62,33 @@ const capituloParagraphs = capituloData ? capituloData.texto_capitulo.split('\n'
           <div class="reader-card-title-subtitle">
             <h1>Capítulo {capituloData?.numero_capitulo}: {capituloData ? capituloData.titulo : 'Capítulo no encontrado'}</h1>
             <hr>
-            <h3>{obraData ? obraData.descripcion : ''}</h3>
+            <h3>{capituloData ? capituloData.descripcion_larga : ''}</h3>
           </div>
         </div>
       </div>
-      <hr>
+      <hr />
       {capituloParagraphs.map((paragraph) => (
-        <>
+        <div>
           <p>{paragraph}</p>
-          <br>
-        </>
+          <br />
+        </div>
       ))}
       <p>Fin.</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="reader-container">
+    <div class="reader-card">
+      <div class="autor-coment-container">
+        <h2>Comentario del autor</h2>
+        <hr>
+        <div class="autor-coment-section">
+          <span class="span-qm">"</span>
+          <p>{capituloData ? capituloData.comentario_creador ? capituloData.comentario_creador : 'Galurian aún no ha dejado un comentario...' : ''}</p>
+          <span class="span-qm">"</span>
+        </div>
     </div>
   </div>
 
@@ -132,6 +147,28 @@ const capituloParagraphs = capituloData ? capituloData.texto_capitulo.split('\n'
     display: flex;
     flex-direction: row;
     height: fit-content;
+  }
+
+  .autor-coment-container {
+    font-style: italic;
+  }
+
+  .autor-coment-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .autor-coment-section p{
+    width: 100%;
+    margin: 0;
+    padding-inline: 1rem;
+    display: flex;
+    height: 100%;
+  }
+  .autor-coment-section .span-qm{
+    font-size: 5rem;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    max-height: 40px;
   }
 
   /* ------------------------------------------------------------------------------------------------- */

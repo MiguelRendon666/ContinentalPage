@@ -29,7 +29,8 @@ export class Capitulo {
   tags: string;
   social_sharing_enabled: boolean;
   seo_score: number;
-  url: string; // URL generada para el capítulo
+  url: string;
+  comentario_creador: string;
 
   constructor(data: any) {
     this.id = data.id;
@@ -59,6 +60,7 @@ export class Capitulo {
     this.social_sharing_enabled = data.social_sharing_enabled;
     this.seo_score = data.seo_score;
     this.url = data.url_busqueda;
+    this.comentario_creador = data.comentario_creador;
   }
 }
 
@@ -91,4 +93,5 @@ export interface ICapitulo {
   social_sharing_enabled: boolean;
   seo_score: number;
   url: string;
+  comentario_creador: string;
 }
