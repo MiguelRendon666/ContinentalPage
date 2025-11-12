@@ -7,7 +7,6 @@ import { CapituloFetch } from '../../fetch/capitulo-fetch';
 import { ObraFetch } from '../../fetch/obra-fetch';
 import type { Capitulo } from '../../models/capitulo';
 import type { Obra as ObraType } from '../../models/obra';
-import type { ApiError } from '../../models/api-error';
 
 export async function getStaticPaths() {
   const obrasResponse = await ObraFetch.getAll();

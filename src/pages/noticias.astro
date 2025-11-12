@@ -1,12 +1,47 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { ROUTES_NAME } from "../constants/routes";
+import NewItem from '../layouts/objects/NewItem.astro';
+import type { Noticia } from '../models/noticia';
+import { NoticiaFetch } from '../fetch/noticia-fetch';
+
+const noticiasResult = await NoticiaFetch.getAll();
+const noticias: Noticia[] = Array.isArray(noticiasResult) ? noticiasResult : [];
 ---
 
 <BaseLayout title={ROUTES_NAME.news}>
 	<div slot="header-slot" class="news-page-header">
-		
+		<h1>Noticias del Sitio</h1>
 	</div>
 
-	notiwias
+	<div class="main-content-news">
+		{noticias.length > 0 ? (
+			noticias.map((noticia) => (
+				<NewItem noticia={noticia} />
+			))
+		) : (
+			<p>No hay noticias disponibles en este momento.</p>
+		)}
+	</div>
 </BaseLayout>
+
+<style>
+	.news-page-header {
+		height: 300px;
+		display: flex;
+		padding-block: 1rem;
+		padding-inline: 2rem;
+		flex-direction: column-reverse;
+		font-size: 2rem;
+	}
+
+	.main-content-news{
+		height: 100vh;
+		margin: 0 auto;
+		padding: 24px 16px;
+		max-width: 1000px;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+</style>

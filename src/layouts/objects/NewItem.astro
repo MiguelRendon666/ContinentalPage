@@ -1,0 +1,99 @@
+---
+import { URL } from '../../constants/url';
+import type { Noticia } from '../../models/noticia';
+
+interface Props {
+    noticia: Noticia;
+}
+
+const { noticia } = Astro.props;
+---
+
+<a href={`${URL.new}${noticia.url_busqueda}`}>
+    <div class="new-item-container">
+        <div class="new-item-card">
+            <div class="new-item-card-background">
+                <img src={noticia.url_portada} alt="">
+            </div>
+            <div class="new-item-card-content">
+                <div class="new-item-card-content-text">
+                    <h2 class="text">{noticia.titulo}</h2>
+                    <hr>
+                    <p class="text">{noticia.descripcion_larga.repeat(2)}</p>
+                    <br>
+                    <p class="text next-sequence">Haz click para mas informacion</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+<style>
+    a {
+        text-decoration: none;
+        color: var(--color-text-main);
+    }
+    
+    .new-item-container {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .new-item-card {
+        width: 100%;
+        max-width: 800px;
+        height: 300px;
+        max-height: 300px;
+        background-color: var(--color-bg-obsidian);
+        border-radius: 2rem;
+        overflow: hidden;
+        position: relative;
+        transition: 0.5s ease;
+    }
+
+    .new-item-card-background{
+        max-height: 300px !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .new-item-card-background img{
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        max-height: 300px;
+        mask-image: linear-gradient(110deg, black 0%, transparent 65%);
+        -webkit-mask-image: linear-gradient(110deg, black 0%, transparent 65%);
+        transition: 0.5s ease;
+    }
+
+    .new-item-card-content {
+        position: inherit;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: row-reverse;
+        z-index: 2;
+    }
+    .new-item-card-content-text{ max-width: 60%; height: fit-content; }
+    .new-item-card-content-text .text { text-align: right; transition: 0.5s ease;}
+    .new-item-card-content-text .text.next-sequence { font-style: italic; opacity: 0.4; }
+    .new-item-card-content-text p.text { 
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        opacity: 0.8;
+    }
+
+    .new-item-card:hover { background-color: var(--color-bg-grafito); }
+    .new-item-card:hover .new-item-card-background img { transform: scale(1.05); }
+    .new-item-card:hover h2.text { color: var(--color-accent-azul); text-decoration: underline; }
+</style>

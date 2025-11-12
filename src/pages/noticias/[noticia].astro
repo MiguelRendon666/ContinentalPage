@@ -1,0 +1,34 @@
+---
+import { NoticiaFetch } from '../../fetch/noticia-fetch';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Noticia as NoticiaType } from '../../models/noticia';
+
+export async function getStaticPaths() {
+  const noticiasResponse = await NoticiaFetch.getAll();
+  const noticias: NoticiaType[] = 'error' in noticiasResponse ? [] : noticiasResponse as NoticiaType[];
+  return noticias.map((noticia) => ({
+    params: { noticia: noticia.url_busqueda },
+  }));
+}
+
+const { noticia } = Astro.params;
+const noticiaResponse = await NoticiaFetch.getByUrl(noticia);
+const noticiaData: NoticiaType | null = 'error' in noticiaResponse ? null : noticiaResponse as NoticiaType;
+--- 
+
+<BaseLayout>
+    <div slot="header-slot" class="news-page-header">
+		<h1>{noticiaData ? noticiaData.titulo : 'Noticia no encontrada'}</h1>
+	</div>
+</BaseLayout>
+
+<style>
+	.news-page-header {
+		height: 300px;
+		display: flex;
+		padding-block: 1rem;
+		padding-inline: 2rem;
+		flex-direction: column-reverse;
+		font-size: 2rem;
+	}
+</style>
