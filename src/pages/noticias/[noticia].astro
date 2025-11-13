@@ -20,6 +20,18 @@ const noticiaData: NoticiaType | null = 'error' in noticiaResponse ? null : noti
     <div slot="header-slot" class="news-page-header">
 		<h1>{noticiaData ? noticiaData.titulo : 'Noticia no encontrada'}</h1>
 	</div>
+
+    <div class="news-page-content">
+        <div class="news-page-data">
+            <h3>{noticiaData ? noticiaData.descripcion_corta : ''}</h3>
+            <hr>
+            <div class="news-page-image-container">
+                <img src={noticiaData ? noticiaData.url_portada : ''} alt={noticiaData ? noticiaData.titulo : ''}>
+            </div>
+            <hr>
+            <p>{noticiaData ? noticiaData.texto_noticia : ''}</p>
+        </div>
+    </div>
 </BaseLayout>
 
 <style>
@@ -31,4 +43,26 @@ const noticiaData: NoticiaType | null = 'error' in noticiaResponse ? null : noti
 		flex-direction: column-reverse;
 		font-size: 2rem;
 	}
+
+    .news-page-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 24px 16px;
+    }
+
+    .news-page-data {
+        width: 100%;
+        height: fit-content;
+        padding: 2rem;
+        background-color: var(--color-bg-obsidian);
+        border-radius: 2rem;
+    }
+
+    .news-page-image-container {
+        width: 100%;
+        height: auto;
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+    }
 </style>
