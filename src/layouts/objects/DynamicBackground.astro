@@ -8,16 +8,23 @@
 </div>
 
 <script>
+  import Rellax from 'rellax';
+  
   const bgContainer = document.querySelector('.dynamic-background');
   const headerElement = document.getElementById('dinamic_header');
   
   if (bgContainer && headerElement) {
-    const viewportHeight = window.innerHeight;
+    const documentHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight
+    );
     const viewportWidth = window.innerWidth;
     const headerHeight = headerElement.offsetHeight;
-    const availableHeight = viewportHeight - headerHeight;
+    const availableHeight = documentHeight - headerHeight;
     
-    const itemCount = Math.floor(availableHeight / 200);
+    const itemCount = Math.floor(availableHeight / 400);
     console.log('availableHeight', availableHeight, 'Item Count:', itemCount);
     const positions: { top: number; left: number; width: number; height: number }[] = [];
     
@@ -25,15 +32,17 @@
       const topPx = (top / 100) * availableHeight + headerHeight;
       const leftPx = (left / 100) * viewportWidth;
       
+      const margin = 20; // Margen de seguridad entre elementos
+      
       return positions.some(pos => {
         const posTopPx = (pos.top / 100) * availableHeight + headerHeight;
         const posLeftPx = (pos.left / 100) * viewportWidth;
         
         const overlap = !(
-          topPx + height < posTopPx ||
-          topPx > posTopPx + pos.height ||
-          leftPx + width < posLeftPx ||
-          leftPx > posLeftPx + pos.width
+          topPx + height + margin < posTopPx ||
+          topPx > posTopPx + pos.height + margin ||
+          leftPx + width + margin < posLeftPx ||
+          leftPx > posLeftPx + pos.width + margin
         );
         
         return overlap;
@@ -48,23 +57,25 @@
       const isDot = i % 2 === 0;
       const size = isDot ? 256 : 250;
       
-      let top = 10 + Math.random() * 70;
-      let left = isLeft ? Math.random() * 30 : 70 + Math.random() * 30;
+      let top = 5 + Math.random() * 90;
+      let left = isLeft ? Math.random() * 35 : 65 + Math.random() * 35;
       let attempts = 0;
       
-      while (checkOverlap(top, left, size, size) && attempts < 20) {
-        top = 10 + Math.random() * 70;
-        left = isLeft ? Math.random() * 30 : 70 + Math.random() * 30;
+      while (checkOverlap(top, left, size, size) && attempts < 50) {
+        top = 5 + Math.random() * 90;
+        left = isLeft ? Math.random() * 35 : 65 + Math.random() * 35;
         attempts++;
       }
       
       const rotation = Math.random() * 360;
+      const parallaxSpeed = -10 + Math.random() * 20; // Velocidad entre -10 y 10
       
       // Ajustar el top para que sea relativo al espacio disponible debajo del header
       const topPx = (top / 100) * availableHeight + headerHeight;
-      const topPercent = (topPx / viewportHeight) * 100;
+      const topPercent = (topPx / documentHeight) * 100;
       
       wrapper.style.cssText = `top: ${topPercent}%; left: ${left}%; transform: rotate(${rotation}deg);`;
+      wrapper.setAttribute('data-rellax-speed', parallaxSpeed.toFixed(1));
       
       const itemDiv = document.createElement('div');
       itemDiv.className = isDot ? 'dot-bg-item' : 'square-bg-item';
@@ -74,6 +85,14 @@
       
       positions.push({ top, left, width: size, height: size });
     }
+    
+    // Inicializar Rellax después de crear todos los elementos
+    new Rellax('.bg-item-wrapper', {
+      center: false,
+      round: true,
+      vertical: true,
+      horizontal: false
+    });
   }
 </script>
 
