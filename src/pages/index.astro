@@ -1,6 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { ROUTES_NAME } from "../constants/routes";
+import { LobbyFetch } from '../fetch/lobby-fetch';
+import type { Lobby } from '../models/lobby';
+import LobbyItem from '../layouts/objects/LobbyItem.astro';
+
+const lobbyResponse = await LobbyFetch.getAll();
+const lobbyData : Lobby[] = 'error' in lobbyResponse ? [] : lobbyResponse as Lobby[];
 ---
 
 <BaseLayout title={ROUTES_NAME.home}>
@@ -8,11 +14,44 @@ import { ROUTES_NAME } from "../constants/routes";
 		<h2>Aqui va un banner super way</h2>
 	</div>
 
-	Aqwui va todo el contenido
+	<div class="main-page-content">
+		<div class="main-page-item-list">
+			<h2>Mira las ultimas novedades</h2>
+			<hr>
+			<div class="main-page-item-listated">
+				{lobbyData.length > 0 ? (
+					<>
+						{lobbyData.map((item) => (
+							<LobbyItem lobbyItem={item} />
+						))}
+					</>
+				) : (
+					<p>No hay novedades disponibles en este momento.</p>
+				)}
+			</div>
+		</div>
+	</div>
 </BaseLayout>
 
 <style>
 	.main-page-header {
 		height: 250px;
+	}
+
+	.main-page-content {
+		min-height: 100vh;
+	}
+
+	.main-page-item-list {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 20px;
+	}
+
+	.main-page-item-listated {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		margin-top: 20px;
 	}
 </style>

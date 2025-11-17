@@ -18,6 +18,7 @@
     const availableHeight = viewportHeight - headerHeight;
     
     const itemCount = Math.floor(availableHeight / 200);
+    console.log('availableHeight', availableHeight, 'Item Count:', itemCount);
     const positions: { top: number; left: number; width: number; height: number }[] = [];
     
     const checkOverlap = (top: number, left: number, width: number, height: number) => {

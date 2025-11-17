@@ -85,9 +85,9 @@ const capituloParagraphs = capituloData ? capituloData.texto_capitulo.split('\n'
         <h2>Comentario del autor</h2>
         <hr>
         <div class="autor-coment-section">
-          <span class="span-qm">"</span>
+          <span class="span-qm icon-quotes-left" />
           <p>{capituloData ? capituloData.comentario_creador ? capituloData.comentario_creador : 'Galurian aún no ha dejado un comentario...' : ''}</p>
-          <span class="span-qm">"</span>
+          <span class="span-qm icon-quotes-right" />
         </div>
     </div>
   </div>
@@ -166,8 +166,7 @@ const capituloParagraphs = capituloData ? capituloData.texto_capitulo.split('\n'
     height: 100%;
   }
   .autor-coment-section .span-qm{
-    font-size: 5rem;
-    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 3rem;
     max-height: 40px;
   }
 

@@ -1,25 +1,33 @@
 ---
 import { URL } from '../../constants/url';
-import type { Noticia } from '../../models/noticia';
+import type { Lobby } from '../../models/lobby';
 
 interface Props {
-    noticia: Noticia;
+    lobbyItem: Lobby;
 }
 
-const { noticia } = Astro.props;
+const { lobbyItem } = Astro.props;
 ---
 
-<a href={`${URL.new}${noticia.url_busqueda}`}>
+<a href={
+    lobbyItem.tipo === 'noticia' ? `${URL.new}${lobbyItem.url_busqueda}` :
+    lobbyItem.tipo === 'capitulo' ? `${URL.chapter}${lobbyItem.url_busqueda}` : ''
+}>
     <div class="new-item-container">
         <div class="new-item-card">
             <div class="new-item-card-background">
-                <img src={noticia.url_portada} alt="">
+                <img src={lobbyItem.url_portada} alt="">
             </div>
             <div class="new-item-card-content">
                 <div class="new-item-card-content-text">
-                    <h2 class="text">{noticia.titulo}</h2>
+                    <h2 class="text">{lobbyItem.tipo.toUpperCase()}: {lobbyItem.titulo}</h2>
                     <hr>
-                    <p class="text">{noticia.descripcion_larga}</p>
+                    <p class="text">
+                        {
+                            lobbyItem.tipo === 'noticia' ? lobbyItem.descripcion_larga :
+                            `Lee el último capítulo: ${lobbyItem.descripcion_larga}`
+                        }
+                    </p>
                     <br>
                     <p class="text next-sequence">Haz click para mas informacion</p>
                 </div>

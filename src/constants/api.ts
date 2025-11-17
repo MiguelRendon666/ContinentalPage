@@ -8,4 +8,5 @@ export const API_BASE_ROUTES: Record<string, string> = {
   news: `${API_SERVER_URL}/noticias/`,
   characters: `${API_SERVER_URL}/personajes-ficticios/`,
   systemVariables: `${API_SERVER_URL}/variables-sistema/`,
+  lobby: `${API_SERVER_URL}/lobby/`,
 }

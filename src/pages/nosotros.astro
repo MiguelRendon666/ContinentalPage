@@ -5,8 +5,135 @@ import { ROUTES_NAME } from "../constants/routes";
 
 <BaseLayout title={ROUTES_NAME.us}>
 	<div slot="header-slot" class="us-page-header">
-		
+		<h1>{ROUTES_NAME.us} <span class="icon-continent"/></h1>
 	</div>
 
-	capwituwos
+	<div class="us-page-content">
+		<div class="us-page-container">
+			<div class="us-page-card">
+				<div class="us-page-card-container">
+					<img src="https://picsum.photos/300/300" alt="">
+					<div class="us-page-card-container-col">
+						<h1>Galurian</h1>
+						<hr>
+						<p>
+							Galurian es un Escritor y Desarrollador encargado de la creación de este Sitio Web personal. Con conocimiento en diversas tecnologías, se aventuró en crear su propio sitio en el que compartir su obra y pasión por la escritura con el mundo.
+						</p>
+						<br>
+						<ul>
+							<li>Escritor de Fantasía y Ciencia Ficción</li>
+							<li>Desarrollador Web Full Stack</li>
+							<li>Apasionado por la tecnología y la narrativa</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<br><hr><br>
+			<h2>Colaboradores de la pagina</h2>
+			<br>
+
+			<div class="us-page-card">
+				<div class="us-page-card-container">
+					<div class="us-page-card-container-col social">
+						<h1>Ryukozilla</h1>
+						<hr>
+						<p>
+							Artista principal y colaborador en la creación de ilustraciones para las obras presentadas en este sitio web. Su talento y creatividad han sido fundamentales para dar vida visual a los mundos imaginarios creados por Galurian.
+						</p>
+						<br>
+						<h3>Redes Sociales</h3> <br>
+						<ul>
+							<li class="twitter-bg-value"><a target="_blank" href="https://x.com/RyukoZilla"><span class="icon-twitter"/> X / Twitter</a></li>
+							<li class="instagram-bg-value"><a target="_blank" href="https://www.instagram.com/kul.skelet0n"><span class="icon-instagram"/> Instagram</a></li>
+						</ul>
+					</div>
+
+					<img src="https://picsum.photos/300/300" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
 </BaseLayout>
+
+<style>
+	a {
+		color: var(--color-text-secondary);
+		text-decoration: none;
+	}
+
+	.us-page-header {
+		height: 300px;
+		display: flex;
+		padding-block: 1rem;
+		padding-inline: 2rem;
+		flex-direction: column-reverse;
+		font-size: 2rem;
+	}
+
+	.us-page-content {
+		padding: 2rem;
+		min-height: 90vh;
+		display: flex;
+		justify-content: center;
+	}
+
+	.us-page-container {
+		max-width: 1200px;
+		width: 100%;
+	}
+
+	.us-page-card {
+		width: 100%;
+		padding: 2rem;
+		border-radius: 2rem;
+		background-color: var(--color-bg-obsidian);
+		height: fit-content;
+		box-sizing: border-box;
+	}
+	.us-page-card-container{
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+	}
+
+	.us-page-card-container img {
+		height: 100%;
+		width: auto;
+		aspect-ratio: 1 / 1 !important;
+		object-fit: cover;
+		border-radius: 50%;
+		}
+
+	.us-page-card-container-col{
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.us-page-card-container-col.social ul{
+		padding: 0;
+		list-style-type: none;
+	}
+
+	.us-page-card-container-col.social ul li{
+		margin-bottom: 0.5rem;
+		background-color: var(--color-bg-pizarra);
+		padding: .75rem;
+		width: fit-content;
+		border-radius: .75rem;
+		transition: 0.5s ease;
+	}
+	.us-page-card-container-col.social ul li:hover { background-color: var(--social-bg-value); }
+	.us-page-card-container-col.social ul li a { color: var(--social-text-value); }
+
+	.twitter-bg-value {
+		--social-bg-value: var(--color-twitter-bg);
+		--social-text-value: var(--color-twitter-text);
+	}
+
+	.instagram-bg-value {
+		--social-bg-value: var(--color-instagram-bg);
+		--social-text-value: var(--color-instagram-text);
+	}
+</style>
