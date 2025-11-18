@@ -40,4 +40,44 @@ const { show, isActive } = Astro.props as Props;
         filter: brightness(1.2);
         transform: translateX(0.5rem);
     }
+
+    /* Media Queries para Responsividad */
+
+    /* Tablets (max-width: 768px) */
+    @media (max-width: 768px) {
+        .w-container-item {
+            padding-inline: 0.75rem;
+            padding-block: 0.4rem;
+            border-radius: 0.6rem;
+        }
+
+        .w-container-item h3 {
+            font-size: 1.1rem;
+        }
+
+        .w-container-item h4 {
+            font-size: 1rem;
+        }
+    }
+
+    /* Móviles (max-width: 480px) */
+    @media (max-width: 480px) {
+        .w-container-item {
+            padding-inline: 0.6rem;
+            padding-block: 0.35rem;
+            border-radius: 0.5rem;
+        }
+
+        .w-container-item h3 {
+            font-size: 1rem;
+        }
+
+        .w-container-item h4 {
+            font-size: 0.9rem;
+        }
+
+        .w-container-item:has(a:hover) {
+            transform: translateX(0.25rem);
+        }
+    }
 </style>

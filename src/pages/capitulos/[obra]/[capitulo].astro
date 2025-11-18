@@ -116,6 +116,8 @@ const capituloParagraphs = capituloData ? capituloData.texto_capitulo.split('\n'
     justify-content: center;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    padding: 2rem;
+    box-sizing: border-box;
   }
 
   .reader-card{
@@ -180,10 +182,144 @@ const capituloParagraphs = capituloData ? capituloData.texto_capitulo.split('\n'
 		mask-repeat: no-repeat;
 		mask-size: cover;
 	}
-	.dynamic-slot-work-header img {
+  .dynamic-slot-work-header img {
 		width: 100%;
-		height: auto;
+		height: 300px;
 		opacity: 0.2;
+    object-fit: cover;
+		object-position: center;
 	}
   /* ------------------------------------------------------------------------------------------------- */
+
+  /* Media Queries para Responsividad */
+
+  /* Tablets (max-width: 768px) */
+  @media (max-width: 768px) {
+    .obra-header-name {
+      height: 250px;
+    }
+
+    .obra-header-name h1 {
+      font-size: 2rem;
+    }
+
+    .obra-header-name h3 {
+      font-size: 1rem;
+    }
+
+    .reader-container {
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
+    }
+
+    .reader-card {
+      padding: 1.5rem;
+      border-radius: 1.5rem;
+    }
+
+    .reader-card-portrait-image {
+      max-width: 250px;
+    }
+
+    .reader-card-portrait-image img {
+      width: 250px;
+      height: 375px;
+    }
+
+    .reader-card-title-subtitle {
+      padding-inline: 1.5rem;
+    }
+
+    .reader-card-title-subtitle h1 {
+      font-size: 1.5rem;
+    }
+
+    .reader-card-title-subtitle h3 {
+      font-size: 1rem;
+    }
+
+    .autor-coment-section .span-qm {
+      font-size: 2.5rem;
+    }
+  }
+
+  /* Móviles (max-width: 480px) */
+  @media (max-width: 480px) {
+    .obra-header-name {
+      height: 200px;
+      padding: 0 1rem;
+    }
+
+    .obra-header-name h1 {
+      font-size: 1.5rem;
+    }
+
+    .obra-header-name h3 {
+      font-size: 0.9rem;
+    }
+
+    .reader-container {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      padding: .5rem;
+    }
+
+    .reader-card {
+      padding: 1rem;
+      border-radius: 1rem;
+    }
+
+    .reader-card-header-content {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .reader-card-portrait-image {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .reader-card-portrait-image img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      aspect-ratio: 2/3;
+    }
+
+    .reader-card-title-subtitle {
+      padding-inline: 0;
+      margin-top: 1rem;
+    }
+
+    .reader-card-title-subtitle h1 {
+      font-size: 1.25rem;
+    }
+
+    .reader-card-title-subtitle h3 {
+      font-size: 0.9rem;
+    }
+
+    .reader-card p {
+      font-size: 0.9rem;
+    }
+
+    .autor-coment-container h2 {
+      font-size: 1.25rem;
+    }
+
+    .autor-coment-section {
+      flex-direction: column;
+    }
+
+    .autor-coment-section .span-qm {
+      font-size: 2rem;
+      align-self: center;
+    }
+
+    .autor-coment-section p {
+      padding-inline: 0.5rem;
+      font-size: 0.9rem;
+    }
+  }
 </style>

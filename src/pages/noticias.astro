@@ -36,12 +36,51 @@ const noticias: Noticia[] = Array.isArray(noticiasResult) ? noticiasResult : [];
 	}
 
 	.main-content-news{
-		height: 100vh;
+		height: auto;
+		min-height: 100vh;
 		margin: 0 auto;
 		padding: 24px 16px;
 		max-width: 1000px;
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
+	}
+
+	/* Media Queries para Responsividad */
+
+	/* Tablets (max-width: 768px) */
+	@media (max-width: 768px) {
+		.news-page-header {
+			height: 250px;
+			padding-inline: 1.5rem;
+			font-size: 1.5rem;
+		}
+
+		.news-page-header h1 {
+			font-size: 2rem;
+		}
+
+		.main-content-news {
+			padding: 20px 12px;
+			gap: 1.25rem;
+		}
+	}
+
+	/* Móviles (max-width: 480px) */
+	@media (max-width: 480px) {
+		.news-page-header {
+			height: 200px;
+			padding-inline: 1rem;
+			font-size: 1.25rem;
+		}
+
+		.news-page-header h1 {
+			font-size: 1.5rem;
+		}
+
+		.main-content-news {
+			padding: 16px 8px;
+			gap: 1rem;
+		}
 	}
 </style>

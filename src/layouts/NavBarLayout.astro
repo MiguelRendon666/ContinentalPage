@@ -54,6 +54,7 @@ const initialPage = 'error' in initialPageResponse ? null : initialPageResponse 
         justify-content: space-around;
         background-color: transparent;
         z-index: 100;;
+        box-sizing: border-box;
     }
     .header-nav-item.scrolled {
         position: fixed;
@@ -89,5 +90,33 @@ const initialPage = 'error' in initialPageResponse ? null : initialPageResponse 
         top: 0;
         mix-blend-mode: screen;
         background: linear-gradient(to bottom, transparent, var(--color-accent-naranja));
+    }
+
+    /* Media Queries para Responsividad */
+
+    /* Tablets (max-width: 768px) */
+    @media (max-width: 768px) {
+        :root {
+            --navbar-height: 60px;
+        }
+
+        .header-nav-item a {
+            font-size: 1rem;
+        }
+    }
+
+    /* Móviles (max-width: 480px) */
+    @media (max-width: 480px) {
+        :root {
+            --navbar-height: 50px;
+        }
+
+        .header-nav-item {
+            justify-content: space-between;
+        }
+
+        .header-nav-item a {
+            font-size: 0.85rem;
+        }
     }
 </style>

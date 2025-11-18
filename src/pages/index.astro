@@ -54,4 +54,40 @@ const lobbyData : Lobby[] = 'error' in lobbyResponse ? [] : lobbyResponse as Lob
 		gap: 2rem;
 		margin-top: 20px;
 	}
+
+	/* Media Queries para Responsividad */
+
+	/* Tablets (max-width: 768px) */
+	@media (max-width: 768px) {
+		.main-page-header {
+			height: 200px;
+		}
+
+		.main-page-item-list {
+			padding: 16px;
+		}
+
+		.main-page-item-listated {
+			gap: 1.5rem;
+		}
+	}
+
+	/* Móviles (max-width: 480px) */
+	@media (max-width: 480px) {
+		.main-page-header {
+			height: 150px;
+		}
+
+		.main-page-item-list {
+			padding: 12px;
+		}
+
+		.main-page-item-list h2 {
+			font-size: 1.5rem;
+		}
+
+		.main-page-item-listated {
+			gap: 1rem;
+		}
+	}
 </style>

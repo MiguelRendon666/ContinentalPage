@@ -92,4 +92,63 @@ const { capitulo } = Astro.props;
 .chapter-item-container:hover .content-2 { opacity: 1; transform: rotateY(180deg);}
 
 .chapter-item-card .content-1 *, .chapter-item-card .content-2 * { width: 100%; }
+
+/* Media Queries para Responsividad */
+
+/* Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .chapter-item-card {
+    height: 250px;
+  }
+
+  .chapter-item-card .content-1 h2,
+  .chapter-item-card .content-2 h2 {
+    font-size: 1.5rem;
+  }
+
+  .chapter-item-card .content-1 h3 {
+    font-size: 1rem;
+  }
+
+  .chapter-item-card .content-2 p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Móviles (max-width: 480px) */
+@media (max-width: 480px) {
+  .chapter-item-a {
+    max-width: 100%;
+  }
+
+  .chapter-item-card {
+    height: 200px;
+    border-radius: 0.75rem;
+  }
+
+  .chapter-item-card .content-1,
+  .chapter-item-card .content-2 {
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+  }
+
+  .chapter-item-card .content-1::before,
+  .chapter-item-card .content-2::before {
+    border: 0.3rem solid var(--color-text-main);
+    border-radius: 0.75rem;
+  }
+
+  .chapter-item-card .content-1 h2,
+  .chapter-item-card .content-2 h2 {
+    font-size: 1.25rem;
+  }
+
+  .chapter-item-card .content-1 h3 {
+    font-size: 0.9rem;
+  }
+
+  .chapter-item-card .content-2 p {
+    font-size: 0.85rem;
+  }
+}
 </style>

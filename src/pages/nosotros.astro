@@ -12,8 +12,8 @@ import { ROUTES_NAME } from "../constants/routes";
 		<div class="us-page-container">
 			<div class="us-page-card">
 				<div class="us-page-card-container">
-					<img src="https://picsum.photos/300/300" alt="">
-					<div class="us-page-card-container-col">
+					<img src="http://localhost/images/profile-pictures/galurian.png" alt="">
+					<div class="us-page-card-container-col galurian">
 						<h1>Galurian <span class="icon-continent"/></h1>
 						<hr>
 						<p>
@@ -36,7 +36,7 @@ import { ROUTES_NAME } from "../constants/routes";
 			<div class="us-page-card">
 				<div class="us-page-card-container">
 					<div class="us-page-card-container-col social">
-						<h1>Ryukozilla</h1>
+						<h1>Skelet0n</h1>
 						<hr>
 						<p>
 							Artista principal y colaborador en la creación de ilustraciones para las obras presentadas en este sitio web. Su talento y creatividad han sido fundamentales para dar vida visual a los mundos imaginarios creados por Galurian.
@@ -49,7 +49,7 @@ import { ROUTES_NAME } from "../constants/routes";
 						</ul>
 					</div>
 
-					<img src="https://picsum.photos/300/300" alt="">
+					<img src="http://localhost/images/profile-pictures/ryukozilla.jpg" alt="">
 				</div>
 			</div>
 		</div>
@@ -98,9 +98,11 @@ import { ROUTES_NAME } from "../constants/routes";
 	}
 
 	.us-page-card-container img {
-		height: 100%;
-		width: auto;
-		aspect-ratio: 1 / 1 !important;
+		width: 300px;
+		height: 300px;
+		min-width: 300px;
+		min-height: 300px;
+		flex-shrink: 0;
 		object-fit: cover;
 		border-radius: 50%;
 		}
@@ -135,5 +137,129 @@ import { ROUTES_NAME } from "../constants/routes";
 	.instagram-bg-value {
 		--social-bg-value: var(--color-instagram-bg);
 		--social-text-value: var(--color-instagram-text);
+	}
+
+	.us-page-card-container-col.galurian ul{
+		padding: 0;
+		list-style-type: none;
+	}
+
+	.us-page-card-container-col.galurian ul li{
+		margin-bottom: 0.5rem;
+		background-color: var(--color-bg-pizarra);
+		padding: .75rem;
+		width: fit-content;
+		border-radius: .75rem;
+		transition: 0.5s ease;
+	}
+
+	/* Media Queries para Responsividad */
+
+	/* Tablets (max-width: 768px) */
+	@media (max-width: 768px) {
+		.us-page-header {
+			height: 250px;
+			padding-inline: 1.5rem;
+			font-size: 1.5rem;
+		}
+
+		.us-page-header h1 {
+			font-size: 2rem;
+		}
+
+		.us-page-content {
+			padding: 1.5rem;
+		}
+
+		.us-page-card {
+			padding: 1.5rem;
+			border-radius: 1.5rem;
+		}
+
+		.us-page-card-container {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.us-page-card-container img {
+			width: 200px;
+			height: 200px;
+			min-width: 200px;
+			min-height: 200px;
+		}
+
+		.us-page-card-container-col {
+			text-align: center;
+		}
+
+		.us-page-card-container-col.social ul {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.us-page-card-container-col.galurian ul {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+
+	/* Móviles (max-width: 480px) */
+	@media (max-width: 480px) {
+		.us-page-header {
+			height: 200px;
+			padding-inline: 1rem;
+			font-size: 1.25rem;
+		}
+
+		.us-page-header h1 {
+			font-size: 1.5rem;
+		}
+
+		.us-page-header h1 span {
+			font-size: 1.75rem;
+		}
+
+		.us-page-content {
+			padding: 1rem;
+		}
+
+		.us-page-card {
+			padding: 1rem;
+			border-radius: 1rem;
+		}
+
+		.us-page-card-container {
+			gap: 1rem;
+		}
+
+		.us-page-card-container img {
+			width: 150px;
+			height: 150px;
+			min-width: 150px;
+			min-height: 150px;
+		}
+
+		.us-page-card-container-col h1 {
+			font-size: 1.5rem;
+		}
+
+		.us-page-card-container-col h1 span {
+			font-size: 1.75rem;
+		}
+
+		.us-page-card-container-col h3 {
+			font-size: 1.1rem;
+		}
+
+		.us-page-card-container-col p {
+			font-size: 0.9rem;
+		}
+
+		.us-page-card-container-col.social ul li {
+			padding: 0.5rem;
+			font-size: 0.9rem;
+		}
 	}
 </style>

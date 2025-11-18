@@ -101,7 +101,8 @@ const obraData = 'error' in obraResponse ? null : obraResponse as ObraType;
 		font-size: 3rem;
 	}
 	.main-content-chapters {
-		height: 100vh;
+		height: auto;
+		min-height: 100vh;
 		max-width: 90%;
 		margin: 0 auto;
 		padding: 24px 16px;
@@ -151,7 +152,108 @@ const obraData = 'error' in obraResponse ? null : obraResponse as ObraType;
 	}
 	.dynamic-slot-work-header img {
 		width: 100%;
-		height: auto;
+		height: 300px;
 		opacity: 0.2;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	/* Media Queries para Responsividad */
+
+	/* Tablets (max-width: 1024px) */
+	@media (max-width: 1024px) {
+		.main-content-chapters {
+			max-width: 95%;
+			flex-direction: column;
+		}
+
+		.main-content-chapters .column-left {
+			flex: 1;
+		}
+
+		.main-content-chapters .column-right {
+			flex: 1;
+		}
+
+		.chapter-list-grid {
+			grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+		}
+
+		.arco-container-header {
+			grid-column: span 1;
+		}
+	}
+
+	/* Tablets (max-width: 768px) */
+	@media (max-width: 768px) {
+		.obra-header-name {
+			height: 250px;
+		}
+
+		.obra-header-name h1 {
+			font-size: 2rem;
+		}
+
+		.obra-header-name h3 {
+			font-size: 1rem;
+		}
+
+		.main-content-chapters {
+			padding: 20px 12px;
+			gap: 1.5rem;
+		}
+
+		.chapter-list-grid {
+			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+			gap: 0.75rem;
+		}
+
+		.chapters-list-container {
+			padding: 0.75rem 1rem;
+		}
+	}
+
+	/* Móviles (max-width: 480px) */
+	@media (max-width: 480px) {
+		.obra-header-name {
+			height: 200px;
+			padding: 0 1rem;
+		}
+
+		.obra-header-name h1 {
+			font-size: 1.5rem;
+		}
+
+		.obra-header-name h3 {
+			font-size: 0.9rem;
+		}
+
+		.main-content-chapters {
+			padding: 16px 8px;
+			gap: 1rem;
+		}
+
+		.chapter-list-grid {
+			grid-template-columns: 1fr;
+			gap: 0.5rem;
+		}
+
+		.chapters-list-container {
+			padding: 0.5rem 0.75rem;
+			border-radius: 1rem;
+		}
+
+		.chapters-list-container h2 {
+			font-size: 1.25rem;
+		}
+
+		.arco-container-header {
+			padding: 0.75rem;
+			border-radius: 1rem;
+		}
+
+		.arco-container-header h1 {
+			font-size: 1.1rem;
+		}
 	}
 </style>

@@ -35,4 +35,36 @@ const isError = 'error' in obrasResponse;
         flex-direction: column;
         gap: .5rem;
     }
+
+    /* Media Queries para Responsividad */
+
+    /* Tablets (max-width: 768px) */
+    @media (max-width: 768px) {
+        .w-container-entire {
+            padding-block: 0.75rem;
+            padding-inline: 1.25rem;
+            border-radius: 1.25rem;
+        }
+
+        .w-container-entire h2 {
+            font-size: 1.25rem;
+        }
+    }
+
+    /* Móviles (max-width: 480px) */
+    @media (max-width: 480px) {
+        .w-container-entire {
+            padding-block: 0.5rem;
+            padding-inline: 1rem;
+            border-radius: 1rem;
+        }
+
+        .w-container-entire h2 {
+            font-size: 1.1rem;
+        }
+
+        .w-container-list {
+            gap: 0.4rem;
+        }
+    }
 </style>

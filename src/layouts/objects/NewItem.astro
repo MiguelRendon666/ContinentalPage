@@ -96,4 +96,92 @@ const { noticia } = Astro.props;
     .new-item-card:hover { background-color: var(--color-bg-grafito); }
     .new-item-card:hover .new-item-card-background img { transform: scale(1.05); }
     .new-item-card:hover h2.text { color: var(--color-accent-azul); text-decoration: underline; }
+
+    /* Media Queries para Responsividad */
+
+    /* Tablets (max-width: 768px) */
+    @media (max-width: 768px) {
+        .new-item-card {
+            height: 250px;
+            max-height: 250px;
+            border-radius: 1.5rem;
+        }
+
+        .new-item-card-background {
+            max-height: 250px !important;
+        }
+
+        .new-item-card-background img {
+            max-height: 250px;
+        }
+
+        .new-item-card-content {
+            padding: 1.25rem;
+        }
+
+        .new-item-card-content-text {
+            max-width: 65%;
+        }
+
+        .new-item-card-content-text h2 {
+            font-size: 1.25rem;
+        }
+
+        .new-item-card-content-text p.text {
+            -webkit-line-clamp: 4;
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Móviles (max-width: 480px) */
+    @media (max-width: 480px) {
+        .new-item-card {
+            height: auto;
+            min-height: 250px;
+            max-height: none;
+            border-radius: 1rem;
+            position: relative;
+        }
+
+        .new-item-card-background {
+            max-height: 200px !important;
+            position: absolute;
+            height: 200px;
+        }
+
+        .new-item-card-background img {
+            max-height: 200px;
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+        }
+
+        .new-item-card-content {
+            padding: 1rem;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+            min-height: 250px;
+        }
+
+        .new-item-card-content-text {
+            max-width: 100%;
+            margin-top: 180px;
+        }
+
+        .new-item-card-content-text .text {
+            text-align: left;
+        }
+
+        .new-item-card-content-text h2 {
+            font-size: 1.1rem;
+        }
+
+        .new-item-card-content-text p.text {
+            -webkit-line-clamp: 3;
+            font-size: 0.85rem;
+        }
+    }
 </style>
