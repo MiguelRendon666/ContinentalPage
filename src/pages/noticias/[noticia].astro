@@ -9,12 +9,11 @@ export async function getStaticPaths() {
   const noticias: NoticiaType[] = 'error' in noticiasResponse ? [] : noticiasResponse as NoticiaType[];
   return noticias.map((noticia) => ({
     params: { noticia: noticia.url_busqueda },
+    props: { noticiaData: noticia }
   }));
 }
 
-const { noticia } = Astro.params;
-const noticiaResponse = await NoticiaFetch.getByUrl(noticia);
-const noticiaData: NoticiaType | null = 'error' in noticiaResponse ? null : noticiaResponse as NoticiaType;
+const { noticiaData } = Astro.props;
 --- 
 
 <BaseLayout>

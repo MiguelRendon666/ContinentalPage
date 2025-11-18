@@ -11,19 +11,22 @@ import type { Obra as ObraType } from '../../models/obra';
 export async function getStaticPaths() {
   const obrasResponse = await ObraFetch.getAll();
   const obras: ObraType[] = 'error' in obrasResponse ? [] : obrasResponse as ObraType[];
-  return obras.map((obra) => ({
-    params: { obra: obra.url },
-  }));
+  
+  const paths = [];
+  for (const obra of obras) {
+    const capitulosResponse = await CapituloFetch.getByObraUrl(obra.url);
+    const capitulos: Capitulo[] = 'error' in capitulosResponse ? [] : capitulosResponse as Capitulo[];
+    paths.push({
+      params: { obra: obra.url },
+      props: { obraData: obra, capitulos: capitulos }
+    });
+  }
+  
+  return paths;
 }
 
 export const dynamicParams = true;
-const { obra } = Astro.params;
-
-const capitulosResponse = await CapituloFetch.getByObraUrl(obra as string);
-const capitulos: Capitulo[] = 'error' in capitulosResponse ? [] : capitulosResponse as Capitulo[];
-
-const obraResponse = await ObraFetch.getByUrl(obra as string);
-const obraData = 'error' in obraResponse ? null : obraResponse as ObraType;
+const { obraData, capitulos } = Astro.props;
 ---
 
 <BaseLayout title={ROUTES_NAME.chapters}>

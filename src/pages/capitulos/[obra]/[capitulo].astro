@@ -10,13 +10,16 @@ import type { Obra } from '../../../models/obra';
 export async function getStaticPaths() {
   const obrasResponse = await ObraFetch.getAll();
   const obras: Obra[] = 'error' in obrasResponse ? [] : obrasResponse as Obra[];
-  const paths: { params: { obra: string; capitulo: string } }[] = [];
+  const paths: { params: { obra: string; capitulo: string }, props: { obraData: Obra, capituloData: CapituloType } }[] = [];
 
   for (const obra of obras) {
     const capitulosResponse = await CapituloFetch.getByObraUrl(obra.url);
     const capitulos: CapituloType[] = 'error' in capitulosResponse ? [] : capitulosResponse as CapituloType[];
     capitulos.forEach(c => {
-      paths.push({ params: { obra: obra.url, capitulo: c.url } });
+      paths.push({ 
+        params: { obra: obra.url, capitulo: c.url },
+        props: { obraData: obra, capituloData: c }
+      });
     });
   }
 
@@ -24,13 +27,7 @@ export async function getStaticPaths() {
 }
 
 export const dynamicParams = true;
-const { obra, capitulo } = Astro.params;
-
-const obraResponse = await ObraFetch.getByUrl(obra as string);
-const obraData = 'error' in obraResponse ? null : obraResponse as Obra;
-
-const capituloResponse = await CapituloFetch.getByUrl(capitulo as string);
-const capituloData = 'error' in capituloResponse ? null : capituloResponse as CapituloType;
+const { obraData, capituloData } = Astro.props;
 const capituloParagraphs = capituloData ? capituloData.texto_capitulo.split('\n') : [];
 ---
 
