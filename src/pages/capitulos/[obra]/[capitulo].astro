@@ -2,6 +2,7 @@
 import { CapituloFetch } from '../../../fetch/capitulo-fetch';
 import { ObraFetch } from '../../../fetch/obra-fetch';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SeoObject from '../../../layouts/objects/SeoObject.astro';
 import type { Capitulo as CapituloType } from '../../../models/capitulo';
 import type { Obra } from '../../../models/obra';
 
@@ -34,6 +35,23 @@ const capituloParagraphs = capituloData ? capituloData.texto_capitulo.split('\n'
 ---
 
 <BaseLayout>
+<SeoObject 
+    slot="head"
+    descripcion_seo={capituloData?.descripcion_seo}
+    keywords={capituloData?.keywords}
+    canonical_url={capituloData?.canonical_url}
+    no_index={capituloData?.no_index}
+    no_follow={capituloData?.no_follow}
+    og_title={capituloData?.og_title}
+    og_description={capituloData?.og_description}
+    og_image={capituloData?.og_image}
+    og_type={capituloData?.og_type}
+    og_url={capituloData?.og_url}
+    alt_text_image={capituloData?.alt_text_image}
+    schema_type={capituloData?.schema_type}
+    tags={capituloData?.tags}
+    social_sharing_enabled={capituloData?.social_sharing_enabled}
+/>
 <!-- Slot del dynamic background para que se vea bien perruqui -->
 	<div slot="dynamic-background-slot">
 		<div class="dynamic-slot-work-header">

@@ -1,6 +1,7 @@
 ---
 import { NoticiaFetch } from '../../fetch/noticia-fetch';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeoObject from '../../layouts/objects/SeoObject.astro';
 import type { Noticia as NoticiaType } from '../../models/noticia';
 
 export async function getStaticPaths() {
@@ -17,6 +18,24 @@ const noticiaData: NoticiaType | null = 'error' in noticiaResponse ? null : noti
 --- 
 
 <BaseLayout>
+    <SeoObject 
+        slot="head"
+        descripcion_seo={noticiaData?.descripcion_seo}
+        keywords={noticiaData?.keywords}
+        canonical_url={noticiaData?.canonical_url}
+        no_index={noticiaData?.no_index}
+        no_follow={noticiaData?.no_follow}
+        og_title={noticiaData?.og_title}
+        og_description={noticiaData?.og_description}
+        og_image={noticiaData?.og_image}
+        og_type={noticiaData?.og_type}
+        og_url={noticiaData?.og_url}
+        alt_text_image={noticiaData?.alt_text_image}
+        schema_type={noticiaData?.schema_type}
+        tags={noticiaData?.tags}
+        social_sharing_enabled={noticiaData?.social_sharing_enabled}
+    />
+
     <div slot="header-slot" class="news-page-header">
 		<h1>{noticiaData ? noticiaData.titulo : 'Noticia no encontrada'}</h1>
 	</div>

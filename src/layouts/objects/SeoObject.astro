@@ -1,0 +1,87 @@
+---
+interface Props {
+    descripcion_seo?: string;
+    keywords?: string;
+    canonical_url?: string;
+    no_index?: boolean;
+    no_follow?: boolean;
+    og_title?: string;
+    og_description?: string;
+    og_image?: string;
+    og_type?: string;
+    og_url?: string;
+    alt_text_image?: string;
+    schema_type?: string;
+    tags?: string;
+    social_sharing_enabled?: boolean;
+}
+
+const { 
+    descripcion_seo,
+    keywords,
+    canonical_url,
+    no_index = false,
+    no_follow = false,
+    og_title,
+    og_description,
+    og_image,
+    og_type = 'website',
+    og_url,
+    alt_text_image,
+    schema_type,
+    tags,
+    social_sharing_enabled = true
+} = Astro.props;
+
+// Construir robots meta tag
+const robotsContent = [];
+if (no_index) robotsContent.push('noindex');
+if (no_follow) robotsContent.push('nofollow');
+const robotsMeta = robotsContent.length > 0 ? robotsContent.join(', ') : 'index, follow';
+
+// Procesar tags/keywords
+const keywordsList = keywords || tags || '';
+---
+
+<!-- SEO Meta Tags -->
+{descripcion_seo && <meta name="description" content={descripcion_seo} />}
+{keywordsList && <meta name="keywords" content={keywordsList} />}
+<meta name="robots" content={robotsMeta} />
+{canonical_url && <link rel="canonical" href={canonical_url} />}
+
+<!-- Open Graph Meta Tags -->
+{social_sharing_enabled && (
+    <>
+        {og_title && <meta property="og:title" content={og_title} />}
+        {og_description && <meta property="og:description" content={og_description} />}
+        {og_image && <meta property="og:image" content={og_image} />}
+        {og_image && alt_text_image && <meta property="og:image:alt" content={alt_text_image} />}
+        {og_type && <meta property="og:type" content={og_type} />}
+        {og_url && <meta property="og:url" content={og_url} />}
+        <meta property="og:locale" content="es_ES" />
+    </>
+)}
+
+<!-- Twitter Card Meta Tags -->
+{social_sharing_enabled && (
+    <>
+        <meta name="twitter:card" content="summary_large_image" />
+        {og_title && <meta name="twitter:title" content={og_title} />}
+        {og_description && <meta name="twitter:description" content={og_description} />}
+        {og_image && <meta name="twitter:image" content={og_image} />}
+        {og_image && alt_text_image && <meta name="twitter:image:alt" content={alt_text_image} />}
+    </>
+)}
+
+<!-- Schema.org JSON-LD -->
+{schema_type && (
+    <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": schema_type,
+        "@id": og_url || canonical_url,
+        "name": og_title,
+        "description": og_description || descripcion_seo,
+        "image": og_image,
+        "url": og_url || canonical_url,
+    })} />
+)}
